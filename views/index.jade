@@ -1,5 +1,53 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class="row")
+    div(class="col-xs-2") Records
+      select(class="form-control" name="record" id="record")
+
+    div(class="col-xs-2") Group By:
+      select(class="form-control" name="group" id="group")
+        option(value='')
+        option(value="host")
+          | Host
+        option(value="ip_address")
+            | IP Address
+        option(value="third_party_host")
+            | Third Party Host vs Company Host
+
+    div(class="col-xs-2")
+      | Size By:
+      select(class="form-control" name="size" id="size")
+        option(value="")
+        option(value="time")
+          | Time
+        option(value="totalsize")
+          | Total Size (Kbs)
+        option(value="headerssize")
+            | Headers Size (Kbs)
+        option(value="bodysize")
+            | Body Size (Kbs)
+        option(value="stddevtime")
+            | Standard Deviation of Time
+
+    div(class="col-xs-2")
+        | Color By:
+        select(class="form-control" name="color" id="color")
+            option(value="")
+            option(value="time")
+                | Time
+            option(value="totalsize")
+                | Total Size (Kbs)
+            option(value="headerssize")
+                | Headers Size (Kbs)
+            option(value="bodysize")
+                | Body Size (Kbs)
+            option(value="stddevtime")
+                | Standard Deviation of Time
+
+    div(class="col")
+      | Colors:
+      div(class="row")
+        div(class="colors", style="height: 34px;")
+
+    div(class="row")
