@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var uniform_resource_locator = require('./routes/uniform_resource_locators');
 var host = require('./routes/hosts');
 var detailed_har_entries = require('./routes/detailed_har_entries');
@@ -28,7 +27,6 @@ har_capture_dashboard.use(cookieParser());
 har_capture_dashboard.use(express.static(path.join(__dirname, 'public')));
 
 har_capture_dashboard.use('/', routes);
-har_capture_dashboard.use('/users', users);
 har_capture_dashboard.use('/', uniform_resource_locator);
 har_capture_dashboard.use('/', host);
 har_capture_dashboard.use('/', detailed_har_entries);

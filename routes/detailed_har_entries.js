@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var detailed_har_entry = require("../models/detailed_har_entry");
 
-router.route('/detailed_har_entries')
+router.route('/detailed_har_entries.json')
   .get(function(request, response) {
     detailed_har_entry.collection().fetch(
       {

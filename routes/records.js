@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var host = require("../models/record");
+var url = require('url');
 
-router.route('/records')
+router.route('/records.json')
     .get(function(request, response) {
+        console.log(url.parse(request.url));
         host.collection().fetch(
             {
                 columns: [

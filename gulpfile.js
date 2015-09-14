@@ -1,9 +1,12 @@
 var gulp = require('gulp');
-var uglify = require("gulp-uglify");
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
-var sourcemaps = require('gulp-sourcemaps');
+//var sourcemaps = require('gulp-sourcemaps');
+var coffee = require('gulp-coffee');
+var gutil = require('gutil');
+var uglify = require('gulp-uglify');
+var minify = require('gulp-minify');
 
 
 gulp.task('default', function() {
@@ -16,11 +19,22 @@ gulp.task('js', function() {
         'bower_components/bootstrap/dist/js/bootstrap.min.js',
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/jquery/dist/jquery.min.map',
-        'bower_components/d3/d3.min.js'
+        'bower_components/d3/d3.min.js',
+        'bower_components/underscore/underscore-min.js',
+        'bower_components/underscore/underscore-min.map'
       ]
   ).pipe(
       gulp.dest('public/javascripts')
   );
+
+  gulp.src(['resources/scripts/*.coffee']
+  ).pipe(
+      coffee({bare: true}).on('error', gutil.log)
+  //).pipe(
+  //    uglify({})
+  ).pipe(
+      gulp.dest('public/javascripts')
+  )
 });
 
 gulp.task('css', function() {
