@@ -1,4 +1,5 @@
-var Record = require("../models/record");
+var Record            = require("../models/record");
+var PerformanceTiming            = require("../models/performance_timing");
 
 var chai = require('chai');
 var expect = chai.expect;
@@ -11,11 +12,17 @@ describe('Record', function() {
         collection.first().detailedHarEntries(function (detailedHarEntry) {
           expect(
               detailedHarEntry.keys()
-          ).to.eql(
-              ['id','har_log_id','url_id','start_date_time','time','address','bodysize','headerssize','status','URL','Host','Source']
-          );
+          ).to.not.be.empty
           done();
         });
+      });
+    });
+  });
+  describe('#performanceTiming()', function(done) {
+    it('Should return the records performance timing information', function(done) {
+      Record.collection().fetch({withRelated: ['performanceTiming']}).then(function(collection) {
+        expect(collection.first().related('performanceTiming').keys()).to.not.be.empty
+        done();
       });
     });
   });

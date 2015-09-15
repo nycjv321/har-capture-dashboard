@@ -1,7 +1,12 @@
 var bookshelf = require('./bookshelf');
 
-var PerformanceTiming = bookshelf.Model.extend({
-    tableName: 'performance_timings'
+var Record = require('./record');
+
+PerformanceTiming = bookshelf.Model.extend({
+    tableName: 'performance_timings',
+    record: function() {
+        return this.hasOne(Record, 'performance_timing_id');
+    }
 });
 
 module.exports = PerformanceTiming
