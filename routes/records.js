@@ -1,11 +1,11 @@
 var express = require('express');
 var Record = require("../models/record");
+
 var URL = require('url');
 var PerformanceTiming = require('../models/performance_timing');
 
 var recordRouter = express.Router();
 var performanceTimingRouter = express.Router({mergeParams: true});
-
 
 recordRouter.use('/records/:recordId/performance_timings', performanceTimingRouter);
 
@@ -36,6 +36,28 @@ recordRouter.route('/performance_timings.json')
         res.status(200);
         PerformanceTiming.collection().fetch().then(function(collection) {
             res.send(collection.toJSON());
+        });
+    });
+
+Array.prototype.diff = function(a) {
+    return this.filter(function(i) {return a.indexOf(i) < 0;});
+};
+
+recordRouter.route('/performance_timings/phases.json')
+    .get(function (req, res) {
+        res.status(200);
+            PerformanceTiming.where({id: 1}).fetch().then(function(performanceTiming) {
+               res.send(performanceTiming.keys().diff(['id', 'created', 'modified']));
+            });
+    });
+
+recordRouter.route('/records/:recordId/detailed_har_entries.json')
+    .get(function (req, res) {
+        res.status(200);
+        Record.where({id: req.params.recordId}).fetch({withRelated: ['har']}).then(function(record) {
+           record.detailedHarEntries(function(detailedHarEntries) {
+               res.send(detailedHarEntries.toJSON());
+           })
         });
     });
 

@@ -15,7 +15,7 @@ var Record = bookshelf.Model.extend({
 
 Record.prototype.detailedHarEntries = function(callback) {
     this.related('har').load(['harLog', 'harLog.detailedHarEntries']).then(function (har) {
-        return callback(har.related('harLog').related('detailedHarEntries').first());
+        return callback(har.related('harLog').related('detailedHarEntries'));
     })
 }
 
