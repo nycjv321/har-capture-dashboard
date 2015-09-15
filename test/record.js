@@ -1,27 +1,41 @@
-var Record            = require("../models/record");
+var DetailedRecord            = require("../models/detailed_record");
 var PerformanceTiming            = require("../models/performance_timing");
 
 var chai = require('chai');
 var expect = chai.expect;
 
-describe('Record', function() {
+describe('DetailedRecord', function() {
   this.timeout(100);
+  describe('#harLog()', function(done) {
+    it('Should return the record\'s Har Log', function(done) {
+      DetailedRecord.collection().fetch({withRelated: ['harLog']}).then(function(collection) {
+        expect(collection.first().related('harLog').keys()).to.not.be.empty
+        done();
+      });
+    });
+  });
   describe('#detailedHarEntries()', function(done) {
     it('Should return a collection of detailed har entries', function(done) {
-      Record.collection().fetch({withRelated: ['har']}).then(function(collection) {
+      DetailedRecord.collection().fetch({withRelated: ['harLog.detailedHarEntries']}).then(function(collection) {
         collection.first().detailedHarEntries(function (detailedHarEntry) {
-          expect(
-              detailedHarEntry.keys()
-          ).to.not.be.empty
+          expect(detailedHarEntry.first().keys()).to.not.be.empty
           done();
         });
       });
     });
   });
   describe('#performanceTiming()', function(done) {
-    it('Should return the records performance timing information', function(done) {
-      Record.collection().fetch({withRelated: ['performanceTiming']}).then(function(collection) {
+    it('Should return the record\'s performance timing information', function(done) {
+      DetailedRecord.collection().fetch({withRelated: ['performanceTiming']}).then(function(collection) {
         expect(collection.first().related('performanceTiming').keys()).to.not.be.empty
+        done();
+      });
+    });
+  });
+  describe('#description()', function(done) {
+    it('Should return the record\'s descriptions', function(done) {
+      DetailedRecord.collection().fetch().then(function(collection) {
+        expect(collection.first().get('description')).to.not.be.empty
         done();
       });
     });

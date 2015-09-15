@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var uniform_resource_locator = require('./routes/uniform_resource_locators');
 var host = require('./routes/hosts');
-var records = require('./routes/records');
+var records = require('./routes/detailed_records');
 
 var har_capture_dashboard = express();
 

@@ -3,7 +3,7 @@ var bookshelf = require('./bookshelf');
 var UniformResourceLocator = bookshelf.Model.extend({
     tableName: 'urls',
     host: function () {
-        return this.attributes['Record'];
+        return this.attributes['DetailedRecord'];
     },
     path: function () {
         return this.attributes['path'];

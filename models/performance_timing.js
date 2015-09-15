@@ -1,6 +1,6 @@
 var bookshelf = require('./bookshelf');
 
-var Record = require('./record');
+var Record = require('./detailed_record');
 
 PerformanceTiming = bookshelf.Model.extend({
     tableName: 'performance_timings',
