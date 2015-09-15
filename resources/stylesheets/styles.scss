@@ -34,3 +34,9 @@ body {
 .popover-content {
   word-wrap: break-word;
 }
+
+#detailed_har_entries td {
+  word-wrap: break-word;
+  min-width: 160px;
+  max-width: 160px
+}

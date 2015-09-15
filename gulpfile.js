@@ -21,11 +21,14 @@ gulp.task('js', function() {
         'bower_components/jquery/dist/jquery.min.map',
         'bower_components/d3/d3.min.js',
         'bower_components/underscore/underscore-min.js',
-        'bower_components/underscore/underscore-min.map'
+        'bower_components/underscore/underscore-min.map',
+        'bower_components/moment/moment.js',
+        'bower_components/bootstrap-table/dist/bootstrap-table.min.js'
       ]
   ).pipe(
       gulp.dest('public/javascripts')
   );
+
 
   gulp.src(['resources/scripts/*.coffee']
   ).pipe(
@@ -43,7 +46,8 @@ gulp.task('css', function() {
         'bower_components/bootstrap/dist/css/bootstrap.min.css',
         'bower_components/bootstrap/dist/css/bootstrap.css.map',
         'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
-        'bower_components/bootstrap/dist/css/bootstrap-theme.css.map'
+        'bower_components/bootstrap/dist/css/bootstrap-theme.css.map',
+        'bower_components/bootstrap-table/dist/bootstrap-table.min.css'
       ]
   ).pipe(
       gulp.dest('public/stylesheets')

@@ -4,7 +4,7 @@ start = (type) ->
   $.ajax
     'async': false
     'global': false
-    'url': '/detailed_har_entries.json',
+    'url': '/records/1/detailed_har_entries.json',
     #'dataType': 'jsonp'
     #'jsonpCallback': 'data'
     'success': (data) ->

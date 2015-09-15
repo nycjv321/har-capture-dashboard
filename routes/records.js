@@ -9,7 +9,11 @@ var performanceTimingRouter = express.Router({mergeParams: true});
 
 recordRouter.use('/records/:recordId/performance_timings', performanceTimingRouter);
 
-recordRouter.route('/records')
+recordRouter.route('/records').get(function(req, res) {
+        res.render('detailed_har_entries', { title: 'Express' });
+    });
+
+recordRouter.route('/records.json')
     .get(function(request, response) {
         console.log(URL.parse(request.url));
         Record.collection().fetch(

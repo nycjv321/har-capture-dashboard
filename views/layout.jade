@@ -8,22 +8,27 @@ html(lane='en')
 
     link(href='/stylesheets/bootstrap.min.css', rel='stylesheet')
     link(href='/stylesheets/styles.css', rel='stylesheet')
+    link(href='/stylesheets/bootstrap-table.min.css', rel='stylesheet')
 
-    title= title
+  title= title
   body
     div(class="container")
       div(class="page-header")
-       h1 Sticky footer
+       h1 Har Data Viewer
 
       block content
 
   footer(class="footer")
     div(class="container")
-      p(class="text-muted") Place sticky footer content here.
+      p(class="text-muted") by chili_con_carne
 
 
   script(src='/javascripts/underscore-min.js')
   script(src='/javascripts/d3.min.js')
   script(src='/javascripts/jquery.min.js')
   script(src='/javascripts/bootstrap.min.js')
-  script(src='/javascripts/scripts.js')
+  script(src='/javascripts/interactive_graph.js')
+  script(src='/javascripts/detailed_har_entries.js')
+  script(src='/javascripts/moment.js')
+  script(src='/javascripts/bootstrap-table.min.js')
+  script(src='/javascripts/jquery.tablesorter.min.js')
