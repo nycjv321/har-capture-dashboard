@@ -1,3 +1,7 @@
+# Har Capture Dashboard
+
+This node.js acts as a ui for har data. Charts and fancy tables to come.
+
 ## Built using
 
 ### core components
