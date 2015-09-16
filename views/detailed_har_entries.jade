@@ -17,9 +17,10 @@ block content
                 a(href="/records/#{record['id']}") (##{record['id']}) #{record['startedatetime']} #{record['description']} #{record['url']} #{record['browser']}
         br
 
-        table(class="table table-responsive table-striped tablesorter", id="detailed_har_entries" data-toggle="table" width="600px"  data-url="/records/#{id}/detailed_har_entries.json")
+        table(class="table table-responsive table-hover table-striped tablesorter", id="detailed_har_entries", data-show-export="true",data-toggle="table", data-toolbar="#toolbar", data-click-to-select="true",  data-height="700", data-show-pagination-switch="true", data-pagination="true", data-search="true", data-show-refresh="true", data-show-toggle="true", data-show-columns="true", width="600px"  data-url="/records/#{id}/detailed_har_entries.json")
           thead
             tr(class='detailed_har_entry_row')
+              th(data-field="state",data-checkbox="true")
               th(class='col-md-3 id', data-field='id', data-sortable="true") Id
               th(class='col-md-3 start_date_time', data-field='start_date_time', data-sortable="true") Start Date Time
               th(class='col-md-3 end_date_time', data-field='end_date_time', data-sortable="true" ) End Date Time

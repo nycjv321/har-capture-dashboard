@@ -24,7 +24,9 @@ gulp.task('js', function() {
         'bower_components/underscore/underscore-min.map',
         'bower_components/moment/moment.js',
           'bower_components/bootstrap-table/dist/bootstrap-table.min.js',
-          'bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js'
+          'bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js',
+          'bower_components/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js',
+          'bower_components/tableExport.jquery.plugin/tableExport.min.js'
       ]
   ).pipe(
       gulp.dest('public/javascripts')

@@ -25,7 +25,7 @@ $("#ex16b").on "slide", (event) ->
 
   # todo clean this up
   performanceTimings
-  if (typeof localStorage['record.' + Number(window.location.pathname.match(/\/records\/\d+/)[0].replace(/\/records\//,
+  if (typeof localStorage['records.' + Number(window.location.pathname.match(/\/records\/\d+/)[0].replace(/\/records\//,
     '')) + '.performance_timings'] == 'undefined')
     $.ajax
       url: window.location.pathname.match(/\/records\/\d+/)[0] + "/performance_timings.json"
@@ -41,14 +41,18 @@ $("#ex16b").on "slide", (event) ->
         $("td.start_date_time").each (index) ->
           if end_date != "afterloadeventend"
             if $(this).text() >= performanceTimings[start_date] and $(this).text() <= performanceTimings[end_date]
-              $(this).parent("tr").show()
+              $("#detailed_har_entries").bootstrapTable('showRow',
+                {index: Number($(this).parent().attr('data-index'))});
             else
-              $(this).parent("tr").hide()
+              $("#detailed_har_entries").bootstrapTable('hideRow',
+                {index: Number($(this).parent().attr('data-index'))});
           else
             if $(this).text() >= performanceTimings[start_date]
-              $(this).parent("tr").show()
+              $("#detailed_har_entries").bootstrapTable('showRow',
+                {index: Number($(this).parent().attr('data-index'))});
             else
-              $(this).parent("tr").hide()
+              $("#detailed_har_entries").bootstrapTable('hideRow',
+                {index: Number($(this).parent().attr('data-index'))});
 
   else
     performanceTimings = JSON.parse(localStorage['records.' + Number(window.location.pathname.match(/\/records\/\d+/)[0].replace(/\/records\//,
@@ -57,12 +61,11 @@ $("#ex16b").on "slide", (event) ->
     $("td.start_date_time").each (index) ->
       if end_date != "afterloadeventend"
         if $(this).text() >= performanceTimings[start_date] and $(this).text() <= performanceTimings[end_date]
-          $(this).parent("tr").show()
+          $("#detailed_har_entries").bootstrapTable('showRow', {index: Number($(this).parent().attr('data-index'))});
         else
-          $(this).parent("tr").hide()
+          $("#detailed_har_entries").bootstrapTable('hideRow', {index: Number($(this).parent().attr('data-index'))});
       else
         if $(this).text() >= performanceTimings[start_date]
-          $(this).parent("tr").show()
+          $("#detailed_har_entries").bootstrapTable('showRow', {index: Number($(this).parent().attr('data-index'))});
         else
-          $(this).parent("tr").hide()
-
+          $("#detailed_har_entries").bootstrapTable('hideRow', {index: Number($(this).parent().attr('data-index'))});
