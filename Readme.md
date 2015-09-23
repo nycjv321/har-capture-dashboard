@@ -1,6 +1,6 @@
 # Har Capture Dashboard
 
-This node.js acts as a ui for har data. Charts and fancy tables to come.
+This app provides a fancy ui for har data (e.g. filting based on performance timings data, exporting filtering data, charts, etc..). Charts and fancy tables to come.
 
 ## Built using
 
