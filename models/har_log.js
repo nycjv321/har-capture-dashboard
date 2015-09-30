@@ -4,9 +4,9 @@ var DetailedHarEntry = require('./detailed_har_entry');
 var HarLog = bookshelf.Model.extend({
     tableName: 'har_logs',
     detailedHarEntries: function() {
-        return this.hasMany(DetailedHarEntry);
+        return this.hasMany('DetailedHarEntry');
     }
 });
 
-
-module.exports = HarLog
+bookshelf.plugin('registry');
+module.exports = bookshelf.model('HarLog', HarLog);

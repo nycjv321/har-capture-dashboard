@@ -3,6 +3,7 @@ var bookshelf = require('./bookshelf');
 var HarLog = require('./har_log');
 var PerformanceTiming = require('./performance_timing');
 
+
 var DetailedRecord = bookshelf.Model.extend({
     tableName: 'detailed_records',
     harLog: function () {
@@ -25,5 +26,6 @@ var RecordDescription = bookshelf.Model.extend({
         return this.hasOne(DetailedRecord, 'description_id');
     }
 });
+bookshelf.plugin('registry');
 
-module.exports = DetailedRecord
+module.exports = bookshelf.model('DetailedRecord', DetailedRecord)

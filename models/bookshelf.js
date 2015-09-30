@@ -4,7 +4,7 @@ var knex = require('knex')({
         host     : '127.0.0.1',
         user     : 'postgres',
         password : '',
-        database : 'performancetool1',
+        database: 'har_capture_dashboard_test',
         charset  : 'utf8'
     }
 });

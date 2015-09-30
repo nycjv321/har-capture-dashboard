@@ -18,7 +18,7 @@ function detailedRecords(callback) {
 
 recordRouter.route('/records').get(function (req, res) {
     detailedRecords(function (allrecords) {
-        res.render('detailed_har_entries', {id: 0, records: allrecords.toJSON(), title: 'Express'});
+        res.render('detailed_har_entries', {id: 1, records: allrecords.toJSON(), title: 'Express'});
     });
 });
 

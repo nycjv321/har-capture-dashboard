@@ -1,10 +1,9 @@
 var DetailedRecord            = require("../models/detailed_record");
-var PerformanceTiming            = require("../models/performance_timing");
 
 var chai = require('chai');
 var expect = chai.expect;
 
-describe('DetailedRecord', function() {
+describe('DetailedRecord', function (done) {
   this.timeout(100);
   describe('#harLog()', function(done) {
     it('Should return the record\'s Har Log', function(done) {
@@ -40,4 +39,5 @@ describe('DetailedRecord', function() {
       });
     });
   });
+
 });
