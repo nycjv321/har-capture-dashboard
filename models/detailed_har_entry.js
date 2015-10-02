@@ -58,22 +58,32 @@ var HarEntryResponse = bookshelf.Model.extend({
 });
 
 DetailedHarEntry.prototype.content = function (callback) {
-    this.related('harEntry').related('harEntryResponse').related('content').load(['encoding', 'mimeType']).then(function (model) {
-        responseData = {
-            id: model.get('id'),
-            compression: model.get('compression'),
-            size: model.get('size'),
-            text: model.get('text')
+    responseData = {};
+    this.related('harEntry').related('harEntryResponse').load().then(function (harEntryResponse) {
+
+        if (harEntryResponse.url().toString() != '') {
+            responseData['redirect_url'] = harEntryResponse.url().toString();
         }
-        if (typeof model.related('encodings') != 'undefined') {
-            responseData['encoding'] = model.related('encodings').get('name');
-        }
-        if (typeof model.related('mimeType') != 'undefined') {
-            responseData['mimeType'] = model.related('mimeType').get('name');
-        }
-        return callback(responseData);
+
+        harEntryResponse.related('content').load(['encoding', 'mimeType']).then(function (model) {
+            if (model.get('compression') != null) {
+                responseData['compression'] = model.get('compression');
+            }
+            if (typeof model.related('mimeType') != 'undefined') {
+                responseData['mimeType'] = model.related('mimeType').get('name');
+            }
+            if (typeof model.related('encodings') != 'undefined') {
+                responseData['encoding'] = model.related('encodings').get('name');
+            }
+
+            responseData['text'] = model.get('text');
+            responseData['size'] = model.get('size');
+
+
+            return callback(responseData);
+        });
     });
 };
 
-
+bookshelf.plugin('registry');
 module.exports = bookshelf.model('DetailedHarEntry', DetailedHarEntry)

@@ -18,6 +18,9 @@ var UniformResourceLocator = bookshelf.Model.extend({
         return this.attributes['query'];
     },
     toString: function() {
+        if (typeof this.host() === 'undefined') {
+            return '';
+        }
         var query = this.URLquery() === null ? '' : this.URLquery();
         if (this.port() !== -1) {
             return this.protocol() + "://" + this.host() + ":" + this.port() + this.path() + query;

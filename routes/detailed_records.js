@@ -1,5 +1,6 @@
 var express = require('express');
 var DetailedRecord = require("../models/detailed_record");
+var DetailedHarEntry = require("../models/detailed_har_entry");
 
 var URL = require('url');
 var PerformanceTiming = require('../models/performance_timing');
@@ -38,8 +39,10 @@ recordRouter.route('/records/:recordId').get(function (req, res) {
 
 recordRouter.route('/records.json')
     .get(function (request, response) {
-        console.log(URL.parse(request.url));
         DetailedRecord.collection().fetch().then(function (collection) {
+            res.status(200);
+            res.header("Content-Type", 'application/json');
+
             response.json(collection.toJSON());
         });
     });
@@ -47,6 +50,7 @@ recordRouter.route('/records.json')
 recordRouter.route('/records/:recordId.json')
     .get(function (req, res) {
         res.status(200);
+        res.header("Content-Type", 'application/json');
         DetailedRecord.where({id: req.params.recordId}).fetch().then(function (record) {
             res.send(record.toJSON());
         })
@@ -54,8 +58,10 @@ recordRouter.route('/records/:recordId.json')
 
 recordRouter.route('/performance_timings.json')
     .get(function (req, res) {
-        res.status(200);
         PerformanceTiming.collection().fetch().then(function (collection) {
+            res.status(200);
+            res.header("Content-Type", 'application/json');
+
             res.send(collection.toJSON());
         });
     });
@@ -69,6 +75,7 @@ Array.prototype.diff = function (a) {
 recordRouter.route('/performance_timings/phases.json')
     .get(function (req, res) {
         res.status(200);
+        res.header("Content-Type", 'application/json');
 
         performance_timings = {};
 
@@ -103,6 +110,7 @@ recordRouter.route('/performance_timings/phases.json')
 recordRouter.route('/performance_timings/simple_phases.json')
     .get(function (req, res) {
         res.status(200);
+        res.header("Content-Type", 'application/json');
 
         performance_timings = {};
 
@@ -119,10 +127,22 @@ recordRouter.route('/performance_timings/simple_phases.json')
 
 recordRouter.route('/records/:recordId/detailed_har_entries.json')
     .get(function (req, res) {
-        res.status(200);
         DetailedRecord.where({id: req.params.recordId}).fetch({withRelated: ['harLog.detailedHarEntries']}).then(function (detailedRecord) {
             detailedRecord.detailedHarEntries(function (detailedHarEntry) {
+                res.status(200);
+                res.header("Content-Type", 'application/json');
                 res.send(detailedHarEntry);
+            });
+        });
+    });
+
+recordRouter.route('/records/:recordId/detailed_har_entries/:entry/content.json')
+    .get(function (req, res) {
+        DetailedHarEntry.where({id: req.params.entry}).fetch({withRelated: ['harEntry.harEntryResponse.content']}).then(function (entry) {
+            entry.content(function (content) {
+                res.status(200);
+                res.header("Content-Type", 'application/json');
+                res.send(content);
             });
         });
     });
@@ -130,6 +150,7 @@ recordRouter.route('/records/:recordId/detailed_har_entries.json')
 recordRouter.route('/records/:recordId/performance_timings.json')
     .get(function (req, res) {
         res.status(200);
+        res.header("Content-Type", 'application/json');
         DetailedRecord.where({id: req.params.recordId}).fetch({withRelated: ['performanceTiming']}).then(function (record) {
             res.send(record.related('performanceTiming').toJSON());
         });

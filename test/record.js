@@ -4,7 +4,7 @@ var chai = require('chai');
 var expect = chai.expect;
 
 describe('DetailedRecord', function (done) {
-  this.timeout(100);
+  this.timeout(500);
   describe('#harLog()', function(done) {
     it('Should return the record\'s Har Log', function(done) {
       DetailedRecord.collection().fetch({withRelated: ['harLog']}).then(function(collection) {

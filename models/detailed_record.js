@@ -10,7 +10,7 @@ var DetailedRecord = bookshelf.Model.extend({
         return this.belongsTo(HarLog);
     },
     performanceTiming: function () {
-        return this.belongsTo(PerformanceTiming, 'performance_timing_id');
+        return this.belongsTo('PerformanceTiming', 'performance_timing_id');
     }
 });
 
@@ -26,6 +26,6 @@ var RecordDescription = bookshelf.Model.extend({
         return this.hasOne(DetailedRecord, 'description_id');
     }
 });
-bookshelf.plugin('registry');
 
+bookshelf.plugin('registry');
 module.exports = bookshelf.model('DetailedRecord', DetailedRecord)
