@@ -4,34 +4,34 @@ block content
   div(class="container")
 
     row(class='row')
-      div(class='col-xs-12 col-md-8 center')
+      div(class='col-md-10 center')
         input(id="ex16b", type="text", size='400', style="width: 100%;")
         br
         br
         div(class="dropdown")
           button(class="btn btn-primary dropdown-toggle",type="button",data-toggle="dropdown") Select Record
-            span(class="caret")
+            col-md-1(class="caret")
           ul(class="dropdown-menu")
             each record in records
               li
                 a(href="/records/#{record['id']}") (##{record['id']}) #{record['startedatetime']} #{record['description']} #{record['url']} #{record['browser']}
         br
 
-        table(class="table table-responsive table-hover table-striped tablesorter", id="detailed_har_entries", data-show-export="true",data-toggle="table", data-toolbar="#toolbar", data-click-to-select="true",  data-height="700", data-show-pagination-switch="true", data-pagination="true", data-search="true", data-show-refresh="true", data-show-toggle="true", data-show-columns="true", width="600px"  data-url="/records/#{id}/detailed_har_entries.json")
+        table(class="table table-responsive table-hover table-striped", id="detailed_har_entries",data-detail-view="true",data-detail-formatter="detailFormatter", data-show-export="true",data-toggle="table", data-toolbar="#toolbar", data-click-to-select="true",  data-height="600", data-show-pagination-switch="true", data-pagination="true", data-search="true", data-show-refresh="true", data-show-toggle="true", data-show-columns="true", data-url="/records/#{id}/detailed_har_entries.json")
           thead
             tr(class='detailed_har_entry_row')
               th(data-field="state",data-checkbox="true")
-              th(class='col-md-3 id', data-field='id', data-sortable="true") Id
-              th(class='col-md-3 start_date_time', data-field='start_date_time', data-sortable="true") Start Date Time
-              th(class='col-md-3 end_date_time', data-field='end_date_time', data-sortable="true" ) End Date Time
-              th(class='col-md-3 started', data-field='started', data-sortable="true" ) Started
-              th(class='col-md-3 time', data-field='time', data-sortable="true") Time
-              th(class='col-md-3 bodysize', data-field='bodysize', data-sortable="true") Body Size
-              th(class='col-md-3 headerssize', data-field='headerssize', data-sortable="true") Header Size
-              th(class='col-md-3 mime_type', data-field='mime_type', data-sortable="true") Mime Type
-              th(class='col-md-3 address', data-field='address', data-sortable="true") Address
-              th(class='col-md-3 url', data-field='method', data-sortable="true") Method
-              th(class='col-md-3 url', data-field='url', data-sortable="true") URL
-              th(class='col-md-3 status', data-field='status', data-sortable="true") Status
-              //th(class='col-md-3 host', data-field='host', data-sortable="true") Host
-              th(class='col-md-3 source', data-field='source', data-sortable="true") Source
+              th(class='col-md-1 id', data-field='id', data-sortable="true") Id
+              th(class='col-md-1 url', data-field='url', data-sortable="true", data-formatter="urlFormatter") URL
+              th(class='col-md-1 method', data-field='method', data-sortable="true") Method
+              th(class='col-md-1 status', data-field='status', data-sortable="true") Status
+              th(class='col-md-1 mime_type', data-field='mime_type', data-sortable="true") Mime Type
+              th(class='col-md-1 start_date_time', data-field='start_date_time', data-sortable="true", data-formatter="dateFormatter") Start Time
+              th(class='col-md-1 end_date_time', data-field='end_date_time', data-sortable="true", data-formatter="dateFormatter") End Time
+              th(class='col-md-1 started', data-field='started', data-sortable="true" ) Started
+              th(class='col-md-1 time', data-field='time', data-sortable="true") Time
+              th(class='col-md-1 bodysize', data-field='bodysize', data-sortable="true") Body Size
+              th(class='col-md-1 headerssize', data-field='headerssize', data-sortable="true") Header Size
+              th(class='col-md-1 address', data-field='address', data-sortable="true") Address
+              //th(class='col-md-1 host', data-field='host', data-sortable="true") Host
+              //th(class='col-md-1 source', data-field='source', data-sortable="true") Source

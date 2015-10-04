@@ -40,14 +40,14 @@ $("#ex16b").on "slide", (event) ->
 
         $("td.start_date_time").each (index) ->
           if end_date != "afterloadeventend"
-            if $(this).text() >= performanceTimings[start_date] and $(this).text() <= performanceTimings[end_date]
+            if $(this).text() >= moment(performanceTimings[start_date]).format('HH:mm:ss:SSS') and $(this).text() <= moment(performanceTimings[end_date]).format('HH:mm:ss:SSS')
               $("#detailed_har_entries").bootstrapTable('showRow',
                 {index: Number($(this).parent().attr('data-index'))});
             else
               $("#detailed_har_entries").bootstrapTable('hideRow',
                 {index: Number($(this).parent().attr('data-index'))});
           else
-            if $(this).text() >= performanceTimings[start_date]
+            if $(this).text() >= moment(performanceTimings[start_date]).format('HH:mm:ss:SSS')
               $("#detailed_har_entries").bootstrapTable('showRow',
                 {index: Number($(this).parent().attr('data-index'))});
             else
@@ -60,12 +60,44 @@ $("#ex16b").on "slide", (event) ->
 
     $("td.start_date_time").each (index) ->
       if end_date != "afterloadeventend"
-        if $(this).text() >= performanceTimings[start_date] and $(this).text() <= performanceTimings[end_date]
+        if $(this).text() >= moment(performanceTimings[start_date]).format('HH:mm:ss:SSS') and $(this).text() <= moment(performanceTimings[end_date]).format('HH:mm:ss:SSS')
           $("#detailed_har_entries").bootstrapTable('showRow', {index: Number($(this).parent().attr('data-index'))});
         else
           $("#detailed_har_entries").bootstrapTable('hideRow', {index: Number($(this).parent().attr('data-index'))});
       else
-        if $(this).text() >= performanceTimings[start_date]
+        if $(this).text() >= moment(performanceTimings[start_date]).format('HH:mm:ss:SSS')
           $("#detailed_har_entries").bootstrapTable('showRow', {index: Number($(this).parent().attr('data-index'))});
         else
           $("#detailed_har_entries").bootstrapTable('hideRow', {index: Number($(this).parent().attr('data-index'))});
+
+detailFormatter = (index, row) ->
+  html = []
+
+  $.ajax
+    url: window.location.pathname + "/detailed_har_entries/" + row['id'] + "/content.json"
+    dataType: 'json',
+    async: false,
+
+    error: (jqXHR, textStatus, errorThrown) ->
+      $('body').append "AJAX Error: #{textStatus}"
+    success: (data, textStatus, jqXHR) ->
+      text = data['text'];
+      if text == ''
+        text = 'empty response body'
+      html.push('<div class="col-md-4">')
+      html.push('<table class="table table-responsive table-hover table-striped"><thead><tr><th>content</th></tr></thead>');
+      html.push('<tbody>')
+      html.push('<tr>')
+      html.push('<td>' + text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + '</td>')
+      html.push('</tr>')
+      html.push('</tbody>')
+
+      html.push('</div>')
+
+  return html.join('')
+
+urlFormatter = (value, row) ->
+  return value.substring(value.length - 16, value.length)
+
+dateFormatter = (value, row) ->
+  return moment(value).format('HH:mm:ss:SSS')

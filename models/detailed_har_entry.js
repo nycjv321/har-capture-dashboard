@@ -19,6 +19,9 @@ var HarEntry = bookshelf.Model.extend({
     },
     harEntryResponse: function () {
         return this.belongsTo(HarEntryResponse, 'entry_response_id');
+    },
+    timings: function () {
+        return this.belongsTo(Timings, 'har_timings_id')
     }
 });
 
@@ -41,12 +44,18 @@ var MimeType = bookshelf.Model.extend({
 
 var Encoding = bookshelf.Model.extend({
     tableName: 'encodings'
+});
 
+var Timings = bookshelf.Model.extend({
+    tableName: 'har_timings',
+    detailedHarEntry: function () {
+        return this.hasOne(DetailedHarEntry, 'id');
+    }
 });
 
 var HarEntryResponse = bookshelf.Model.extend({
     tableName: 'har_entry_responses',
-    url: function () {
+    redirectUrl: function () {
         return this.belongsTo(UniformResourceLocator, 'redirect_url_id');
     },
     content: function () {
@@ -57,12 +66,13 @@ var HarEntryResponse = bookshelf.Model.extend({
     }
 });
 
+
 DetailedHarEntry.prototype.content = function (callback) {
     responseData = {};
     this.related('harEntry').related('harEntryResponse').load().then(function (harEntryResponse) {
 
-        if (harEntryResponse.url().toString() != '') {
-            responseData['redirect_url'] = harEntryResponse.url().toString();
+        if (harEntryResponse.redirectUrl().toString() != '') {
+            responseData['redirect_url'] = harEntryResponse.redirectUrl().toString();
         }
 
         harEntryResponse.related('content').load(['encoding', 'mimeType']).then(function (model) {

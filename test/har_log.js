@@ -10,7 +10,7 @@ describe('HarLog', function(done) {
       HarLog.where({id: 1}).fetch({withRelated: ['detailedHarEntries']}).then(function(entries) {
         var detailed_har_entries = entries.related('detailedHarEntries');
           expect(
-            Object.keys(detailed_har_entries)
+            Object.keys(detailed_har_entries.toJSON())
         ).to.not.be.empty;
 
         detailedHarEntry = detailed_har_entries.first();

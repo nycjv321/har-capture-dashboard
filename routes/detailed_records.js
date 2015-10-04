@@ -131,7 +131,7 @@ recordRouter.route('/records/:recordId/detailed_har_entries.json')
             detailedRecord.detailedHarEntries(function (detailedHarEntry) {
                 res.status(200);
                 res.header("Content-Type", 'application/json');
-                res.send(detailedHarEntry);
+                res.send(detailedRecord.related('harLog').related('detailedHarEntries'));
             });
         });
     });
@@ -146,6 +146,16 @@ recordRouter.route('/records/:recordId/detailed_har_entries/:entry/content.json'
             });
         });
     });
+
+recordRouter.route('/records/:recordId/detailed_har_entries/:entry/timings.json')
+    .get(function (req, res) {
+        DetailedHarEntry.where({id: req.params.entry}).fetch({withRelated: ['harEntry.timings']}).then(function (entry) {
+            res.status(200);
+            res.header("Content-Type", 'application/json');
+            res.send(entry.related('harEntry').related('timings'));
+        });
+    });
+
 
 recordRouter.route('/records/:recordId/performance_timings.json')
     .get(function (req, res) {
